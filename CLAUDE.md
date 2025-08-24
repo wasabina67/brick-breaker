@@ -1,1 +1,3 @@
-
+- Do not use semicolons at the end of lines in TypeScript/JavaScript files (.tsx, .jsx, .ts, .js).
+- End of lines without trailing whitespace.
+- Files should end with a single empty line.
