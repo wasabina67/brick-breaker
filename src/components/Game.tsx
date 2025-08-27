@@ -1,4 +1,6 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
+import backgroundImage from '../assets/background.png'
+import waitingImage from '../assets/waiting.png'
 
 interface GameState {
   score: number
@@ -30,7 +32,7 @@ interface Block {
 }
 
 const CANVAS_WIDTH = 1200
-const CANVAS_HEIGHT = 750
+const CANVAS_HEIGHT = 800
 const PADDLE_WIDTH = 300
 const PADDLE_HEIGHT = 5
 const BALL_RADIUS = 8
@@ -272,17 +274,50 @@ const Game = () => {
         </div>
       </div>
 
-      <canvas
-        ref={canvasRef}
-        width={CANVAS_WIDTH}
-        height={CANVAS_HEIGHT}
-        style={{
-          border: '1px solid #333',
-          backgroundColor: '#F0F0F0',
-          display: 'block',
-          margin: '0 auto'
-        }}
-      />
+      <div style={{ position: 'relative', display: 'inline-block' }}>
+        {gameState.gameStatus === 'waiting' ? (
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: CANVAS_WIDTH,
+              height: CANVAS_HEIGHT,
+              backgroundImage: `url(${waitingImage})`,
+              backgroundSize: 'contain',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              zIndex: -1
+            }}
+          />
+        ) : (
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: CANVAS_WIDTH,
+              height: CANVAS_HEIGHT,
+              backgroundImage: `url(${backgroundImage})`,
+              backgroundSize: 'contain',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              zIndex: -1
+            }}
+          />
+        )}
+        <canvas
+          ref={canvasRef}
+          width={CANVAS_WIDTH}
+          height={CANVAS_HEIGHT}
+          style={{
+            border: '1px solid #333',
+            backgroundColor: 'transparent',
+            display: 'block',
+            margin: '0 auto'
+          }}
+        />
+      </div>
 
       {gameState.gameStatus === 'waiting' && (
         <div style={{ marginTop: '10px' }}>
